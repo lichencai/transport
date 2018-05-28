@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_HOME" value="/u01/srv/share/logs/illegal" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="COMMON"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/usercenter.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- “fileNamePattern”选项以“.gz”或“.zip”结尾，就表示需要压缩 -->
+			<FileNamePattern>${LOG_HOME}/usercenter-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+			<!--<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+				<!--<maxFileSize>1GB</maxFileSize>-->
+			<!--</timeBasedFileNamingAndTriggeringPolicy>-->
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="ERROR"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/error-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="SYSTEM"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/system.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/system-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="TASK"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/task.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- “fileNamePattern”选项以“.gz”或“.zip”结尾，就表示需要压缩 -->
+			<FileNamePattern>${LOG_HOME}/task-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="ridingEnd"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/ridingEnd.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- “fileNamePattern”选项以“.gz”或“.zip”结尾，就表示需要压缩 -->
+			<FileNamePattern>${LOG_HOME}/ridingEnd-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+			<!--<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+				<!--<maxFileSize>1GB</maxFileSize>-->
+			<!--</timeBasedFileNamingAndTriggeringPolicy>-->
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="SUNING"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/suNing.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- “fileNamePattern”选项以“.gz”或“.zip”结尾，就表示需要压缩 -->
+			<FileNamePattern>${LOG_HOME}/suNing-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="ELAPSED_TIME"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/elapsed_time.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- “fileNamePattern”选项以“.gz”或“.zip”结尾，就表示需要压缩 -->
+			<FileNamePattern>${LOG_HOME}/elapsed_time-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+			<!--<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+				<!--<maxFileSize>1GB</maxFileSize>-->
+			<!--</timeBasedFileNamingAndTriggeringPolicy>-->
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="DISCONF_LOG_CONFIG"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/disconf.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- “fileNamePattern”选项以“.gz”或“.zip”结尾，就表示需要压缩 -->
+			<FileNamePattern>${LOG_HOME}/disconf-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{30}.%M[%L] - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 系统相关 start -->
+	<logger name="com.xming.server.Main" level="INFO" additivity="false">
+		<appender-ref ref="SYSTEM" />
+		<appender-ref ref="ERROR" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="com.xming.server.dao.TestDao" level="DEBUG" additivity="false">
+		<!--<appender-ref ref="STDOUT" />  &lt;!&ndash; 标准输出，线上不需要 &ndash;&gt;-->
+		<appender-ref ref="SYSTEM" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<!-- 系统相关 end -->
+
+	<!-- 业务日志 start -->
+	<logger name="com.xming.server" level="INFO" additivity="false" >
+		<appender-ref ref="STDOUT" /><!-- &lt;!&ndash; &lt;!&ndash; 标准输出，线上不需要 &ndash;&gt;&ndash;&gt;-->
+		<appender-ref ref="COMMON" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<!-- 骑行日志-->
+	<logger name="com.xming.server.controller.UserRidingController" level="INFO" additivity="true" >
+		<appender-ref ref="ridingEnd" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="com.xming.server.ridingend.impl.EngineImpl" level="INFO" additivity="true" >
+		<appender-ref ref="ridingEnd" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="com.xming.server.service.impl.UserRidingServiceImpl" level="INFO" additivity="true" >
+		<appender-ref ref="ridingEnd" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<!-- 苏宁日志 -->
+	<logger name="com.xming.server.controller.suning" level="INFO" additivity="false" >
+		<appender-ref ref="SUNING" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="com.xming.server.dao" level="DEBUG" additivity="false" >
+		<!--<appender-ref ref="COMMON" />--><!----> <!-- DB日志，线上不需要，开发时建议打开 -->
+		<appender-ref ref="ERROR" />
+	</logger>
+	<!-- 业务日志 end -->
+	<!-- 定时任务相关 start -->
+	<logger name="com.xming.server.LZBScheduleTasks" level="INFO" additivity="false" >
+		<!--<appender-ref ref="COMMON" />-->
+		<appender-ref ref="TASK" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="com.xming.server.LZBTaskProcessor" level="INFO" additivity="false" >
+		<!--<appender-ref ref="COMMON" />-->
+		<appender-ref ref="TASK" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="com.xming.server.service.impl.LZBServiceImpl" level="INFO" additivity="false" >
+		<!--<appender-ref ref="COMMON" />-->
+		<appender-ref ref="TASK" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<!-- 定时任务相关 end -->
+
+	<!-- 方法调用耗时 start -->
+	<logger name="com.xming.server.aop.AspectJAdvice" level="INFO" additivity="false" >
+		<!--<appender-ref ref="COMMON" />-->
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ELAPSED_TIME" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<!-- 方法调用耗时 end -->
+
+	<!-- disconf 启动日志 -->
+	<logger name="com.zriot.elicense.illegal.dao" level="DEBUG" additivity="false" >
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<!-- 日志输出级别 -->
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="SYSTEM" />
+		<appender-ref ref="ERROR" />
+	</root>
+</configuration>

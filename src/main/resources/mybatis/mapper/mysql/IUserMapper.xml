@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zriot.elicense.illegal.dao.IUserMapper">
+
+  <sql id="iUserColumn">
+    id as id, 
+    login_name as loginName, 
+    password as password, 
+    name as name, 
+    email as email, 
+    phone as phone, 
+    mobile as mobile, 
+    login_ip as loginIp, 
+    login_date as loginDate, 
+    login_flag as loginFlag, 
+    create_date as createDate
+  </sql>
+  
+  <select id="selectByLoginName" resultType="com.zriot.elicense.illegal.model.IUser">
+    select 
+    <include refid="iUserColumn" />
+    from i_user
+    where login_name = #{loginName}
+  </select>
+  
+  
+  <select id="selectByName" resultType="com.zriot.elicense.illegal.model.IUser">
+    select 
+    <include refid="iUserColumn" />
+    from i_user
+    where name = #{name}
+  </select>
+  
+</mapper>
