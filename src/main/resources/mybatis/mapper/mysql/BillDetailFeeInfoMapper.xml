@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zriot.elicense.illegal.dao.BillDetailFeeInfoMapper">
+
+  <sql id="billDetailFeeInfoColumn">
+    id as id, 
+    bill_fee_id as billFeeId, 
+    type as type, 
+    unit as unit, 
+    fee as fee, 
+    delete_flag as deleteFlag, 
+    update_user as updateUser, 
+    update_date as updateDate
+  </sql>
+  
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillDetailFeeInfo">
+    insert into bill_detail_fee_info 
+    	(bill_fee_id, type, unit, fee, delete_flag, update_user, update_date)
+    values
+    	(#{billFeeId},#{type},#{unit},#{fee},#{deleteFlag},#{updateUser},#{updateDate})
+  </insert>
+  
+  <update id="update" parameterType="com.zriot.elicense.illegal.model.BillDetailFeeInfo">
+  	update bill_detail_fee_info
+  		<set>
+	  		<if test="billFeeId != null">
+	  			bill_fee_id = #{billFeeId},
+	  		</if>
+	  		<if test="type != null">
+	  			type = #{type},
+	  		</if>
+	  		<if test="unit != null">
+	  			unit = #{unit},
+	  		</if>
+	  		<if test="fee != null">
+	  			fee = #{fee},
+	  		</if>
+	  		<if test="deleteFlag != null">
+	  			delete_flag = #{deleteFlag},
+	  		</if>
+	  		<if test="updateUser != null">
+	  			update_user = #{updateUser},
+	  		</if>
+	  		<if test="updateDate != null">
+	  			update_date = #{updateDate},
+	  		</if>
+	  	</set>
+  </update>
+  
+  <select id="searchByBillFeeId" parameterType="java.lang.Integer"  resultType="com.zriot.elicense.illegal.model.BillDetailFeeInfo">
+  	select 
+    <include refid="billDetailFeeInfoColumn" />
+    from bill_detail_fee_info
+    where bill_fee_id = #{billFeeId}
+  </select>
+  
+  
+</mapper>

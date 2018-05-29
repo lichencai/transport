@@ -1,5 +1,7 @@
 package com.zriot.elicense.illegal.model;
 
+import java.util.Date;
+
 public class BillFee {
 	private Integer id;
 	private Integer billInfoId;
@@ -14,6 +16,8 @@ public class BillFee {
 	private Integer feePayType;
 	private Double feeReceivable;
 	private Double realCharge;
+	private String updateUser;
+	private Date updateDate;
 	public Integer getId() {
 		return id;
 	}
@@ -91,5 +95,17 @@ public class BillFee {
 	}
 	public void setRealCharge(Double realCharge) {
 		this.realCharge = realCharge;
+	}
+	public String getUpdateUser() {
+		return updateUser;
+	}
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 }

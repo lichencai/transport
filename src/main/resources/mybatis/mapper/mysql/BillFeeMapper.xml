@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zriot.elicense.illegal.dao.BillFeeMapper">
+
+  <sql id="billFeeColumn">
+    id as id, 
+    bill_info_id as billInfoId, 
+    transport_fee as transportFee, 
+    deliver_fee as deliverFee, 
+    shipment_fee as shipmentFee, 
+    charge_fee as chargeFee, 
+    warehouse_fee as warehouseFee, 
+    collection_fee as collectionFee, 
+    insurance_fee as insuranceFee, 
+    other_fee as otherFee, 
+    fee_pay_type as feePayType, 
+    fee_receivable as feeReceivable, 
+    real_charge as realCharge, 
+    update_user as updateUser, 
+    update_date as updateDate
+  </sql>
+  
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillFee">
+    insert into bill_fee 
+    	(bill_info_id, transport_fee, deliver_fee, shipment_fee, charge_fee, warehouse_fee, collection_fee, insurance_fee, other_fee,
+    	fee_pay_type, fee_receivable, real_charge, update_user, update_date)
+    values
+    	(#{billInfoId},#{transportFee},#{deliverFee},#{shipmentFee},#{chargeFee},#{warehouseFee},#{collectionFee},#{insuranceFee},#{otherFee},
+    	#{feePayType},#{feeReceivable},#{realCharge},#{updateUser},#{updateDate})
+  </insert>
+  
+  <update id="update" parameterType="com.zriot.elicense.illegal.model.BillFee">
+  	update bill_fee
+  		<set>
+	  		<if test="billInfoId != null">
+	  			bill_info_id = #{billInfoId},
+	  		</if>
+	  		<if test="transportFee != null">
+	  			transport_fee = #{transportFee},
+	  		</if>
+	  		<if test="deliverFee != null">
+	  			deliver_fee = #{deliverFee},
+	  		</if>
+	  		<if test="shipmentFee != null">
+	  			shipment_fee = #{shipmentFee},
+	  		</if>
+	  		<if test="chargeFee != null">
+	  			charge_fee = #{chargeFee},
+	  		</if>
+	  		<if test="warehouseFee != null">
+	  			warehouse_fee = #{warehouseFee},
+	  		</if>
+	  		<if test="collectionFee != null">
+	  			collection_fee = #{collectionFee},
+	  		</if>
+	  		<if test="insuranceFee != null">
+	  			insurance_fee = #{insuranceFee},
+	  		</if>
+	  		<if test="otherFee != null">
+	  			other_fee = #{otherFee},
+	  		</if>
+	  		<if test="feePayType != null">
+	  			fee_pay_type = #{feePayType},
+	  		</if>
+	  		<if test="feeReceivable != null">
+	  			fee_receivable = #{feeReceivable},
+	  		</if>
+	  		<if test="realCharge != null">
+	  			real_charge = #{realCharge},
+	  		</if>
+	  		<if test="updateUser != null">
+	  			update_user = #{updateUser},
+	  		</if>
+	  		<if test="updateDate != null">
+	  			update_date = #{updateDate},
+	  		</if>
+	  	</set>
+	where id = #{id}
+  </update>
+  
+  
+  <select id="searchByBillInfoId" parameterType="java.lang.Integer"  resultType="com.zriot.elicense.illegal.model.BillFee">
+  	select 
+    <include refid="billFeeColumn" />
+    from bill_fee
+    where bill_info_id = #{billInfoId}
+  </select>
+  
+  
+</mapper>

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.zriot.elicense.illegal.service.impl;
 
 import java.util.List;
@@ -12,11 +9,6 @@ import com.zriot.elicense.illegal.dao.IUserMapper;
 import com.zriot.elicense.illegal.model.IUser;
 import com.zriot.elicense.illegal.service.IUserService;
 
-/**
- * @author fangyunhe
- *
- * 2017年11月23日 上午10:54:10
- */
 @Service
 public class IUserServiceImpl implements IUserService{
 	

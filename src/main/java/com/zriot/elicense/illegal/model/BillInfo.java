@@ -19,7 +19,10 @@ public class BillInfo {
 	private String handledBy;
 	private String mark;
 	private Date createDate;
-	private String creater;
+	private Date updateDate;
+	private Integer isFinshAll;
+	private String creator;
+	private String updateUser;
 	private Integer deleteFlag;
 	public Integer getId() {
 		return id;
@@ -111,17 +114,35 @@ public class BillInfo {
 	public void setMark(String mark) {
 		this.mark = mark;
 	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public String getCreater() {
-		return creater;
+	public String getUpdateUser() {
+		return updateUser;
 	}
-	public void setCreater(String creater) {
-		this.creater = creater;
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+	public Integer getIsFinshAll() {
+		return isFinshAll;
+	}
+	public void setIsFinshAll(Integer isFinshAll) {
+		this.isFinshAll = isFinshAll;
+	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 	public Integer getDeleteFlag() {
 		return deleteFlag;

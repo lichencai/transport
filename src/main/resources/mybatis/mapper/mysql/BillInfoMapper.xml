@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zriot.elicense.illegal.dao.BillInfoMapper">
+
+  <sql id="billInfoColumn">
+    id as id, 
+    bill_id as billId, 
+    customer_name as customerName, 
+    from_address as fromAddress, 
+    to_address as toAddress, 
+    sender as sender, 
+    sender_mobile as senderMobile, 
+    sender_identity_card as senderIdentityCard, 
+    receiver as receiver, 
+    receiver_mobile as receiverMobile, 
+    car_no as carNo, 
+    receive_date as receiveDate, 
+    is_finsh_fee as isFinshFee, 
+    handled_by as handledBy, 
+    mark as mark, 
+    create_date as createDate, 
+    update_date as updateDate, 
+    is_finsh_all as isFinshAll, 
+    creator as creator, 
+    update_user as updateUser, 
+    delete_flag as deleteFlag
+  </sql>
+  
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillInfo">
+    insert into bill_info 
+    	(bill_id, customer_name, from_address, to_address, sender, sender_mobile, sender_identity_card, receiver, receiver_mobile,
+    	car_no, receive_date, is_finsh_fee, handled_by, mark, create_date, update_date, is_finsh_all, creator, update_user, delete_flag)
+    values
+    	(#{billId},#{customerName},#{fromAddress},#{toAddress},#{sender},#{senderMobile},#{senderIdentityCard},#{receiver},#{receiverMobile},
+    	#{carNo},#{receiveDate},#{isFinshFee},#{handledBy},#{mark},#{createDate},#{updateDate},#{isFinshAll},#{creator},#{updateUser},#{deleteFlag})
+  </insert>
+  
+  
+  <update id="update" parameterType="com.zriot.elicense.illegal.model.BillInfo">
+  	update bill_info
+  		<set>
+	  		<if test="billId != null">
+	  			bill_id = #{billId},
+	  		</if>
+	  		<if test="customerName != null">
+	  			customer_name = #{customerName},
+	  		</if>
+	  		<if test="fromAddress != null">
+	  			from_address = #{fromAddress},
+	  		</if>
+	  		<if test="toAddress != null">
+	  			to_address = #{toAddress},
+	  		</if>
+	  		<if test="sender != null">
+	  			sender = #{sender},
+	  		</if>
+	  		<if test="senderMobile != null">
+	  			sender_mobile = #{senderMobile},
+	  		</if>
+	  		<if test="senderIdentityCard != null">
+	  			sender_identity_card = #{senderIdentityCard},
+	  		</if>
+	  		<if test="receiver != null">
+	  			receiver = #{receiver},
+	  		</if>
+	  		<if test="receiverMobile != null">
+	  			receiver_mobile = #{receiverMobile},
+	  		</if>
+	  		<if test="carNo != null">
+	  			car_no = #{carNo},
+	  		</if>
+	  		<if test="receiveDate != null">
+	  			receive_date = #{receiveDate},
+	  		</if>
+	  		<if test="isFinshFee != null">
+	  			is_finsh_fee = #{isFinshFee},
+	  		</if>
+	  		<if test="handledBy != null">
+	  			handled_by = #{handledBy},
+	  		</if>
+	  		<if test="mark != null">
+	  			mark = #{mark},
+	  		</if>
+	  		<if test="createDate != null">
+	  			create_date = #{createDate},
+	  		</if>
+	  		<if test="updateDate != null">
+	  			update_date = #{updateDate},
+	  		</if>
+	  		<if test="isFinshAll != null">
+	  			is_finsh_all = #{isFinshAll},
+	  		</if>
+	  		<if test="creator != null">
+	  			creator = #{creator},
+	  		</if>
+	  		<if test="updateUser != null">
+	  			update_user = #{updateUser},
+	  		</if>
+	  		<if test="deleteFlag != null">
+	  			delete_flag = #{deleteFlag},
+	  		</if>
+  		</set>
+  		where id = #{id} 
+  </update>
+  
+  
+  <update id="delete" parameterType="java.lang.Integer">
+  		update bill_info set delete_flag = 1 where id = #{id}
+  </update>
+  
+  <select id="searchById" parameterType="java.lang.Integer"  resultType="com.zriot.elicense.illegal.model.BillInfo">
+  	select 
+    <include refid="billInfoColumn" />
+    from bill_info
+    where id = #{id}
+  </select>
+  
+  
+  
+  
+</mapper>

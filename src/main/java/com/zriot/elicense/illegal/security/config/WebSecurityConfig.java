@@ -22,6 +22,7 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
         security
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/iuser/login").permitAll()
+//            .antMatchers(HttpMethod.POST, "/**").permitAll()
             .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
         super.configure(security);
     }
