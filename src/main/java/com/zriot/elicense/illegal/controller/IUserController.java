@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zriot.elicense.illegal.response.Response;
+import com.zriot.elicense.illegal.security.LoginUserInfo;
 import com.zriot.elicense.illegal.security.TokenUtil;
+import com.zriot.elicense.illegal.security.config.AbstractTokenUtil;
 import com.zriot.elicense.illegal.service.IUserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,14 +67,29 @@ public class IUserController {
 	}
 	
 	@PostMapping("/userInfo")
-	public Response<String> getUserInfo(HttpServletRequest request, HttpServletResponse response) {
+	public Response<String> userInfo(HttpServletRequest request, HttpServletResponse response) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
 			    .getAuthentication()
 			    .getPrincipal();
 		return Response.successResponse(userDetails.getUsername());
 	}
 	
-	
+	@PostMapping("/loginOut")
+	public Response<String> loginOut(HttpServletRequest request, HttpServletResponse response) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+			    .getAuthentication()
+			    .getPrincipal();
+		
+		String username = userDetails.getUsername();
+		
+		String key = AbstractTokenUtil.REDIS_PREFIX_AUTH + username;
+        LoginUserInfo.delToken(key);
+        
+        String key1 = AbstractTokenUtil.REDIS_PREFIX_USER + username;
+        LoginUserInfo.delUserJson(key1);
+        
+		return Response.successResponse("退出成功");
+	}
 	
 	
 }

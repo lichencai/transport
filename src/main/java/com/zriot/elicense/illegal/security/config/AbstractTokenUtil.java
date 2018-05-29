@@ -29,11 +29,11 @@ public abstract class AbstractTokenUtil {
     /**
      * 权限缓存前缀
      */
-    private static final String REDIS_PREFIX_AUTH = "auth:";
+    public static final String REDIS_PREFIX_AUTH = "auth:";
     /**
      * 用户信息缓存前缀
      */
-    private static final String REDIS_PREFIX_USER = "user-details:";
+    public static final String REDIS_PREFIX_USER = "user-details:";
 
     /**
      * redis repository

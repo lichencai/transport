@@ -34,7 +34,8 @@ public class AuthenticationTokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String authHeader = httpRequest.getHeader(TOKEN_HEADER);
+//        String authHeader = httpRequest.getHeader(TOKEN_HEADER);
+        String authHeader = httpRequest.getParameter("token");
 
         if (authHeader == null || !authHeader.startsWith(AbstractTokenUtil.TOKEN_TYPE_BEARER)) {
             chain.doFilter(request, response);
