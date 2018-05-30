@@ -7,8 +7,8 @@ import com.zriot.elicense.illegal.model.BillInfo;
 @Repository
 public interface BillInfoMapper {
 	Integer insert(BillInfo billInfo);
-	void update(BillInfo billInfo);
-	void delete(Integer id);
+	int update(BillInfo billInfo);
+	int delete(Integer id);
 	BillInfo searchById(Integer id);
 //	List<BillInfo> searchByParams();
 }

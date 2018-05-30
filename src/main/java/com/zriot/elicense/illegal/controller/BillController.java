@@ -1,7 +1,6 @@
 package com.zriot.elicense.illegal.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zriot.elicense.illegal.dao.BillInfoMapper;
-import com.zriot.elicense.illegal.model.BillInfo;
 import com.zriot.elicense.illegal.request.GetBillInfoListRequest;
 import com.zriot.elicense.illegal.request.SaveOrUpdateBillRequest;
 import com.zriot.elicense.illegal.response.BillInfoResponse;
@@ -34,7 +31,6 @@ public class BillController {
 	@Autowired
 	private BillService billService;
 	
-	
 	@PostMapping("/saveOrUpdateBill")
 	public Response<String> saveOrUpdateBill(@RequestBody SaveOrUpdateBillRequest saveOrUpdateBillRequest) {
 		log.info("saveOrUpdateBill params : {}", JSONUtils.beanToJSONString(saveOrUpdateBillRequest));
@@ -51,8 +47,7 @@ public class BillController {
 		String id = request.getParameter("id");
 		log.info("editBill params : {}", id);
 		BillInfoResponse billInfoResponse = null;
-		
-		
+		billInfoResponse = billService.findBillInfoById(Integer.parseInt(id));
 		return Response.successResponse(billInfoResponse);
 	}
 	
@@ -60,24 +55,23 @@ public class BillController {
 	public Response<String> deleteBill(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		log.info("editBill params : {}", id);
-		BillInfoResponse billInfoResponse = null;
-		
-		
-		return Response.successResponse("");
+		boolean result = billService.deleteBill(Integer.parseInt(id));
+		if(!result){
+			Response.failResponse("删除失败");
+		}
+		return Response.successResponse("删除成功");
 	}
 	
 	@PostMapping("/finshBill")
 	public Response<String> finshBill(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		log.info("editBill params : {}", id);
-		BillInfoResponse billInfoResponse = null;
-		
-		
-		return Response.successResponse("");
+		boolean result = billService.finshBill(Integer.parseInt(id));
+		if(!result){
+			Response.failResponse("订单完成失败");
+		}
+		return Response.successResponse("订单完成成功");
 	}
-	
-	
-	
 	
 	@PostMapping("/getBillInfoList")
 	public Response<List<BillInfoResponse>> getBillInfoList(@RequestBody GetBillInfoListRequest getBillInfoListRequest) {

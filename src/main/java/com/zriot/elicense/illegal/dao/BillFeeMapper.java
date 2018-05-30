@@ -7,6 +7,6 @@ import com.zriot.elicense.illegal.model.BillFee;
 @Repository
 public interface BillFeeMapper {
 	Integer insert(BillFee billFee);
-	void update(BillFee billFee);
-	BillFeeMapper searchByBillInfoId(Integer billInfoId);
+	int update(BillFee billFee);
+	BillFee searchByBillInfoId(Integer billInfoId);
 }

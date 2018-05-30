@@ -8,16 +8,14 @@
     type as type, 
     unit as unit, 
     fee as fee, 
-    delete_flag as deleteFlag, 
-    update_user as updateUser, 
-    update_date as updateDate
+    delete_flag as deleteFlag
   </sql>
   
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillDetailFeeInfo">
     insert into bill_detail_fee_info 
-    	(bill_fee_id, type, unit, fee, delete_flag, update_user, update_date)
+    	(bill_fee_id, type, unit, fee, delete_flag)
     values
-    	(#{billFeeId},#{type},#{unit},#{fee},#{deleteFlag},#{updateUser},#{updateDate})
+    	(#{billFeeId},#{type},#{unit},#{fee},#{deleteFlag})
   </insert>
   
   <update id="update" parameterType="com.zriot.elicense.illegal.model.BillDetailFeeInfo">
@@ -38,12 +36,6 @@
 	  		<if test="deleteFlag != null">
 	  			delete_flag = #{deleteFlag},
 	  		</if>
-	  		<if test="updateUser != null">
-	  			update_user = #{updateUser},
-	  		</if>
-	  		<if test="updateDate != null">
-	  			update_date = #{updateDate},
-	  		</if>
 	  	</set>
   </update>
   
@@ -51,8 +43,11 @@
   	select 
     <include refid="billDetailFeeInfoColumn" />
     from bill_detail_fee_info
-    where bill_fee_id = #{billFeeId}
+    where bill_fee_id = #{billFeeId} and delete_flag != 1
   </select>
   
+  <update id="delete" parameterType="java.lang.Integer">
+  		update bill_detail_fee_info set delete_flag = 1 where id = #{id}
+  </update>
   
 </mapper>

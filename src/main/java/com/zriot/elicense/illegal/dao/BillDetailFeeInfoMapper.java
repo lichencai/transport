@@ -9,7 +9,7 @@ import com.zriot.elicense.illegal.model.BillDetailFeeInfo;
 @Repository
 public interface BillDetailFeeInfoMapper {
 	Integer insert(BillDetailFeeInfo billDetailFeeInfo);
-	void update(BillDetailFeeInfo billDetailFeeInfo);
-	void delete(Integer id);
+	int update(BillDetailFeeInfo billDetailFeeInfo);
+	int delete(Integer id);
 	List<BillDetailFeeInfo> searchByBillFeeId(Integer billFeeId);
 }
