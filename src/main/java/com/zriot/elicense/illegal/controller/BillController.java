@@ -1,8 +1,5 @@
 package com.zriot.elicense.illegal.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zriot.elicense.illegal.request.GetBillInfoListRequest;
 import com.zriot.elicense.illegal.request.SaveOrUpdateBillRequest;
 import com.zriot.elicense.illegal.response.BillInfoResponse;
+import com.zriot.elicense.illegal.response.GetBillInfoListResponse;
 import com.zriot.elicense.illegal.response.Response;
 import com.zriot.elicense.illegal.service.BillService;
 import com.zriot.elicense.illegal.util.JSONUtils;
@@ -74,16 +72,10 @@ public class BillController {
 	}
 	
 	@PostMapping("/getBillInfoList")
-	public Response<List<BillInfoResponse>> getBillInfoList(@RequestBody GetBillInfoListRequest getBillInfoListRequest) {
-		log.info("saveOrUpdateBill params : {}", JSONUtils.beanToJSONString(getBillInfoListRequest));
-		List<BillInfoResponse> list = new ArrayList<BillInfoResponse>();
-		
-		
-		
-		
-		return Response.successResponse(list);
+	public Response<GetBillInfoListResponse> getBillInfoList(@RequestBody GetBillInfoListRequest getBillInfoListRequest) {
+		log.info("getBillInfoList params : {}", JSONUtils.beanToJSONString(getBillInfoListRequest));
+		GetBillInfoListResponse response = billService.getBillListInfo(getBillInfoListRequest);
+		return Response.successResponse(response);
 	}
-	
-	
 	
 }

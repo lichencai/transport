@@ -2,8 +2,10 @@ package com.zriot.elicense.illegal.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.zriot.elicense.illegal.request.GetBillInfoListRequest;
 import com.zriot.elicense.illegal.request.SaveOrUpdateBillRequest;
 import com.zriot.elicense.illegal.response.BillInfoResponse;
+import com.zriot.elicense.illegal.response.GetBillInfoListResponse;
 
 public interface BillService {
 	/**
@@ -22,4 +24,9 @@ public interface BillService {
 	 * 根据订单id,完成订单
 	 */
 	public boolean finshBill(Integer id);
+	
+	/**
+	 * 分页查询订单信息
+	 */
+	public GetBillInfoListResponse getBillListInfo(GetBillInfoListRequest getBillInfoListRequest);
 }

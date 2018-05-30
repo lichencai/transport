@@ -1,5 +1,6 @@
 package com.zriot.elicense.illegal.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,9 +15,13 @@ import com.zriot.elicense.illegal.dao.BillInfoMapper;
 import com.zriot.elicense.illegal.model.BillDetailFeeInfo;
 import com.zriot.elicense.illegal.model.BillFee;
 import com.zriot.elicense.illegal.model.BillInfo;
+import com.zriot.elicense.illegal.request.GetBillInfoListRequest;
 import com.zriot.elicense.illegal.request.SaveOrUpdateBillRequest;
 import com.zriot.elicense.illegal.response.BillInfoResponse;
+import com.zriot.elicense.illegal.response.GetBillInfoListResponse;
 import com.zriot.elicense.illegal.service.BillService;
+import com.zriot.elicense.illegal.vo.BillListSearchResultVo;
+import com.zriot.elicense.illegal.vo.BillListSearchVo;
 
 @Service
 public class BillServiceImpl implements BillService{
@@ -30,8 +35,6 @@ public class BillServiceImpl implements BillService{
 	
 	@Autowired
 	private BillDetailFeeInfoMapper billDetailFeeInfoMapper;
-	
-	
 	
 	@Override
 	@Transactional
@@ -118,5 +121,55 @@ public class BillServiceImpl implements BillService{
 		}
 		return true;
 	}
+
+	@Override
+	public GetBillInfoListResponse getBillListInfo(GetBillInfoListRequest getBillInfoListRequest) {
+		GetBillInfoListResponse response = new GetBillInfoListResponse();
+		
+		BillListSearchVo billListSearchVo = new BillListSearchVo();
+		
+		billListSearchVo.setBeginDate(getBillInfoListRequest.getBeginDate());
+		billListSearchVo.setCustomerName(getBillInfoListRequest.getCustomerName());
+		billListSearchVo.setEndDate(getBillInfoListRequest.getEndDate());
+		billListSearchVo.setIsFinshAll(getBillInfoListRequest.getIsFinshAll());
+		billListSearchVo.setIsFinshFee(getBillInfoListRequest.getIsFinshFee());
+		billListSearchVo.setPageSize(getBillInfoListRequest.getPageSize());
+		
+		Integer total = billInfoMapper.countBillList(billListSearchVo);
+		if(total == 0){
+			response.setPageNo(0);
+			response.setTotal(0);
+			response.setPageSize(getBillInfoListRequest.getPageSize());
+			response.setTotalPages(0);
+			response.setVos(new ArrayList<BillListSearchResultVo>());
+			return response;
+		}
+		
+		Integer beginNo = (getBillInfoListRequest.getPageNo() - 1) * getBillInfoListRequest.getPageSize();
+		if(beginNo > total){
+			beginNo = total;
+		}
+		billListSearchVo.setBeginNo(beginNo);
+		
+		List<BillListSearchResultVo> vos = billInfoMapper.searchBillList(billListSearchVo);
+		
+		response.setPageNo(getBillInfoListRequest.getPageNo());
+		response.setTotal(total);
+		response.setPageSize(getBillInfoListRequest.getPageSize());
+		response.setTotalPages(getIntDivide(total, getBillInfoListRequest.getPageSize()));
+		response.setVos(vos);
+		
+		return response;
+	}
+	
+	private int getIntDivide(int a, int b){
+		int c = a / b;
+		if(a % b != 0){
+			c++;
+		}
+		return c;
+	}
+	
+	
 
 }

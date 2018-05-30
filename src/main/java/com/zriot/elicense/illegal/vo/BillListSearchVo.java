@@ -1,12 +1,12 @@
-package com.zriot.elicense.illegal.request;
+package com.zriot.elicense.illegal.vo;
 
 import java.util.Date;
 
-public class GetBillInfoListRequest {
-	private String customerName;
+public class BillListSearchVo {
+	private String  customerName;
 	private Integer isFinshAll;
 	private Integer isFinshFee;
-	private Integer pageNo;
+	private Integer beginNo;
 	private Integer pageSize;
 	private Date beginDate;
 	private Date endDate;
@@ -28,11 +28,11 @@ public class GetBillInfoListRequest {
 	public void setIsFinshFee(Integer isFinshFee) {
 		this.isFinshFee = isFinshFee;
 	}
-	public Integer getPageNo() {
-		return pageNo;
+	public Integer getBeginNo() {
+		return beginNo;
 	}
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
+	public void setBeginNo(Integer beginNo) {
+		this.beginNo = beginNo;
 	}
 	public Integer getPageSize() {
 		return pageSize;

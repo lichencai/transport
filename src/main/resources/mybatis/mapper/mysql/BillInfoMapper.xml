@@ -26,6 +26,41 @@
     delete_flag as deleteFlag
   </sql>
   
+  <sql id="billInfoAndBillFeeColumn">
+    t.id as id, 
+	t.bill_id as billId, 
+	t.customer_name as customerName, 
+	t.from_address as fromAddress, 
+	t.to_address as toAddress, 
+	t.sender as sender, 
+	t.sender_mobile as senderMobile, 
+	t.sender_identity_card as senderIdentityCard, 
+	t.receiver as receiver, 
+	t.receiver_mobile as receiverMobile, 
+	t.car_no as carNo, 
+	t.receive_date as receiveDate, 
+	t.is_finsh_fee as isFinshFee, 
+	t.handled_by as handledBy, 
+	t.mark as mark, 
+	t.create_date as createDate, 
+	t.update_date as updateDate, 
+	t.is_finsh_all as isFinshAll, 
+	t.creator as creator, 
+	t.update_user as updateUser, 
+	t.delete_flag as deleteFlag,
+	t1.transport_fee as transportFee, 
+	t1.deliver_fee as deliverFee, 
+	t1.shipment_fee as shipmentFee, 
+	t1.charge_fee as chargeFee, 
+	t1.warehouse_fee as warehouseFee, 
+	t1.collection_fee as collectionFee, 
+	t1.insurance_fee as insuranceFee, 
+	t1.other_fee as otherFee, 
+	t1.fee_pay_type as feePayType, 
+	t1.fee_receivable as feeReceivable, 
+	t1.real_charge as realCharge
+  </sql>
+  
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillInfo">
     insert into bill_info 
     	(bill_id, customer_name, from_address, to_address, sender, sender_mobile, sender_identity_card, receiver, receiver_mobile,
@@ -115,7 +150,49 @@
     where id = #{id} and delete_flag != 1
   </select>
   
+  <select id="searchBillList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="com.zriot.elicense.illegal.vo.BillListSearchResultVo">
+  	select 
+    <include refid="billInfoAndBillFeeColumn" />
+    from bill_info t, bill_fee t1
+    where t.delete_flag != 1
+    <if test="customerName != null">
+		and t.customer_name like concat(concat('%', #{customerName}), '%')
+	</if>
+	<if test="isFinshAll != null">
+		and t.is_finsh_all = #{isFinshAll}
+	</if>
+	<if test="isFinshFee != null">
+		and t.is_finsh_fee = #{isFinshFee}
+	</if>
+	<if test="beginDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+	</if>
+	<if test="endDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+	order by t.create_date LIMIT #{beginNo}, #{pageSize}
+  </select>
   
+  <select id="countBillList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="java.lang.Integer">
+  	select count(*)
+    from bill_info t, bill_fee t1
+    where t.delete_flag != 1
+    <if test="customerName != null">
+		and t.customer_name like concat(concat('%', #{customerName}), '%')
+	</if>
+	<if test="isFinshAll != null">
+		and t.is_finsh_all = #{isFinshAll}
+	</if>
+	<if test="isFinshFee != null">
+		and t.is_finsh_fee = #{isFinshFee}
+	</if>
+	<if test="beginDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+	</if>
+	<if test="endDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+  </select>
   
   
 </mapper>
