@@ -52,7 +52,7 @@ public class BillController {
 	@PostMapping("/deleteBill")
 	public Response<String> deleteBill(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
-		log.info("editBill params : {}", id);
+		log.info("deleteBill params : {}", id);
 		boolean result = billService.deleteBill(Integer.parseInt(id));
 		if(!result){
 			Response.failResponse("删除失败");
@@ -63,7 +63,7 @@ public class BillController {
 	@PostMapping("/finshBill")
 	public Response<String> finshBill(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
-		log.info("editBill params : {}", id);
+		log.info("finshBill params : {}", id);
 		boolean result = billService.finshBill(Integer.parseInt(id));
 		if(!result){
 			Response.failResponse("订单完成失败");

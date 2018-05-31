@@ -154,7 +154,7 @@
   	select 
     <include refid="billInfoAndBillFeeColumn" />
     from bill_info t, bill_fee t1
-    where t.delete_flag != 1
+    where t.delete_flag != 1 and t.id = t1.bill_info_id
     <if test="customerName != null">
 		and t.customer_name like concat(concat('%', #{customerName}), '%')
 	</if>
@@ -170,13 +170,13 @@
 	<if test="endDate != null">
 		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endDate}, '%Y-%m-%d')
 	</if>
-	order by t.create_date LIMIT #{beginNo}, #{pageSize}
+	order by t.create_date desc LIMIT #{beginNo}, #{pageSize}
   </select>
   
   <select id="countBillList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="java.lang.Integer">
   	select count(*)
     from bill_info t, bill_fee t1
-    where t.delete_flag != 1
+    where t.delete_flag != 1 and t.id = t1.bill_info_id
     <if test="customerName != null">
 		and t.customer_name like concat(concat('%', #{customerName}), '%')
 	</if>
