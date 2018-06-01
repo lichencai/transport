@@ -160,7 +160,7 @@
 	<!-- 系统相关 end -->
 
 	<!-- 业务日志 start -->
-	<logger name="com.xming.server" level="INFO" additivity="false" >
+	<logger name="com.zriot.elicense.illegal" level="INFO" additivity="false" >
 		<appender-ref ref="STDOUT" /><!-- &lt;!&ndash; &lt;!&ndash; 标准输出，线上不需要 &ndash;&gt;&ndash;&gt;-->
 		<appender-ref ref="COMMON" />
 		<appender-ref ref="ERROR" />
