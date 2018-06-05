@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zriot.elicense.illegal.dao.CustomerInfoMapper">
+
+  <sql id="customerInfoColumn">
+    id as id, 
+    customer_name as customerName, 
+    address as address, 
+    mobile as mobile, 
+    telephone as telephone, 
+    fax as fax, 
+    email as email, 
+    birthday as birthday, 
+    mark as mark, 
+    creator as creator, 
+    update_user as updateUser, 
+    delete_flag as deleteFlag, 
+    update_date as updateDate, 
+    create_date as createDate
+  </sql>
+  
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.CustomerInfo">
+    insert into customer_info 
+    	(customer_name, address, mobile, telephone, fax, email, birthday, mark, creator,
+    	update_user, delete_flag, update_date, create_date)
+    values
+    	(#{customerName},#{address},#{mobile},#{telephone},#{fax},#{email},#{birthday},#{mark},#{creator},
+    	#{updateUser},#{deleteFlag},#{updateDate},#{createDate})
+  </insert>
+  
+  
+  <update id="update" parameterType="com.zriot.elicense.illegal.model.CustomerInfo">
+  	update customer_info
+  		<set>
+	  		<if test="customerName != null">
+	  			customer_name = #{customerName},
+	  		</if>
+	  		<if test="address != null">
+	  			address = #{address},
+	  		</if>
+	  		<if test="mobile != null">
+	  			mobile = #{mobile},
+	  		</if>
+	  		<if test="telephone != null">
+	  			telephone = #{telephone},
+	  		</if>
+	  		<if test="fax != null">
+	  			fax = #{fax},
+	  		</if>
+	  		<if test="email != null">
+	  			email = #{email},
+	  		</if>
+	  		<if test="birthday != null">
+	  			birthday = #{birthday},
+	  		</if>
+	  		<if test="mark != null">
+	  			mark = #{mark},
+	  		</if>
+	  		<if test="creator != null">
+	  			creator = #{creator},
+	  		</if>
+	  		<if test="updateUser != null">
+	  			update_user = #{updateUser},
+	  		</if>
+	  		<if test="deleteFlag != null">
+	  			delete_flag = #{deleteFlag},
+	  		</if>
+	  		<if test="updateDate != null">
+	  			update_date = #{updateDate},
+	  		</if>
+	  		<if test="createDate != null">
+	  			create_date = #{createDate},
+	  		</if>
+  		</set>
+  		where id = #{id}
+  </update>
+  
+  
+  <update id="delete" parameterType="java.lang.Integer">
+  		update customer_info set delete_flag = 1 where id = #{id}
+  </update>
+  
+  <select id="searchById" parameterType="java.lang.Integer"  resultType="com.zriot.elicense.illegal.model.CustomerInfo">
+  	select 
+    <include refid="customerInfoColumn" />
+    from customer_info
+    where id = #{id} and delete_flag != 1
+  </select>
+  
+  <select id="searchCustomerList" parameterType="com.zriot.elicense.illegal.vo.CustomerListSearchVo"  resultType="com.zriot.elicense.illegal.model.CustomerInfo">
+  	select 
+    <include refid="customerInfoColumn" />
+    from customer_info t
+    where t.delete_flag != 1
+    <if test="customerName != null">
+		and t.customer_name like concat(concat('%', #{customerName}), '%')
+	</if>
+	<if test="beginDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+	</if>
+	<if test="endDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+	order by t.create_date desc LIMIT #{beginNo}, #{pageSize}
+  </select>
+  
+  <select id="countCustomerList" parameterType="com.zriot.elicense.illegal.vo.CustomerListSearchVo"  resultType="java.lang.Integer">
+  	select count(*)
+    from customer_info t
+    where t.delete_flag != 1
+    <if test="customerName != null">
+		and t.customer_name like concat(concat('%', #{customerName}), '%')
+	</if>
+	<if test="beginDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+	</if>
+	<if test="endDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+  </select>
+  
+</mapper>
