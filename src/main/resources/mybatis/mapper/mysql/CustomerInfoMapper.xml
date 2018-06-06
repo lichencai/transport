@@ -4,7 +4,8 @@
 
   <sql id="customerInfoColumn">
     id as id, 
-    customer_name as customerName, 
+    customer_name as customerName,
+    customer_id as customerId, 
     address as address, 
     mobile as mobile, 
     telephone as telephone, 
@@ -21,10 +22,10 @@
   
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.CustomerInfo">
     insert into customer_info 
-    	(customer_name, address, mobile, telephone, fax, email, birthday, mark, creator,
+    	(customer_name, customer_id, address, mobile, telephone, fax, email, birthday, mark, creator,
     	update_user, delete_flag, update_date, create_date)
     values
-    	(#{customerName},#{address},#{mobile},#{telephone},#{fax},#{email},#{birthday},#{mark},#{creator},
+    	(#{customerName},#{customerId},#{address},#{mobile},#{telephone},#{fax},#{email},#{birthday},#{mark},#{creator},
     	#{updateUser},#{deleteFlag},#{updateDate},#{createDate})
   </insert>
   
@@ -34,6 +35,9 @@
   		<set>
 	  		<if test="customerName != null">
 	  			customer_name = #{customerName},
+	  		</if>
+	  		<if test="customerId != null">
+	  			customer_id = #{customerId},
 	  		</if>
 	  		<if test="address != null">
 	  			address = #{address},

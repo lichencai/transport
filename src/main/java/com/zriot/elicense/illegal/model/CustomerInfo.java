@@ -5,6 +5,7 @@ import java.util.Date;
 public class CustomerInfo {
 	private Integer id;
 	private String customerName;
+	private String customerId;
 	private String address;
 	private String mobile;
 	private String telephone;
@@ -28,6 +29,12 @@ public class CustomerInfo {
 	}
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	public String getAddress() {
 		return address;

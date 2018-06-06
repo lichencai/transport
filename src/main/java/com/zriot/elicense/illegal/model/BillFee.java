@@ -9,6 +9,7 @@ public class BillFee {
 	private Double chargeFee;
 	private Double warehouseFee;
 	private Double collectionFee;
+	private Double offer;
 	private Double insuranceFee;
 	private Double otherFee;
 	private Integer feePayType;

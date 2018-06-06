@@ -5,7 +5,11 @@ import java.util.Date;
 public class BillInfo {
 	private Integer id;
 	private String billId;
+	private Integer customerInfoId;
 	private String customerName;
+	private String productName;
+	private String productPack;
+	private Integer productNumber;
 	private String fromAddress;
 	private String toAddress;
 	private String sender;
@@ -13,6 +17,7 @@ public class BillInfo {
 	private String senderIdentityCard;
 	private String receiver;
 	private String receiverMobile;
+	private String receiverIdentityCard;
 	private String carNo;
 	private Date receiveDate;
 	private Integer isFinshFee;
