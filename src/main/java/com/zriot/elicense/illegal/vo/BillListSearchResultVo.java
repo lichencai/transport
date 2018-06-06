@@ -24,6 +24,11 @@ public class BillListSearchResultVo {
 	private String creator;
 	private String updateUser;
 	private Integer deleteFlag;
+	private Integer customerInfoId;
+	private String productName;
+	private String productPack;
+	private Integer productNumber;
+	private String receiverIdentityCard;
 	private Double transportFee;
 	private Double deliverFee;
 	private Double shipmentFee;
@@ -226,5 +231,35 @@ public class BillListSearchResultVo {
 	}
 	public void setRealCharge(Double realCharge) {
 		this.realCharge = realCharge;
+	}
+	public Integer getCustomerInfoId() {
+		return customerInfoId;
+	}
+	public void setCustomerInfoId(Integer customerInfoId) {
+		this.customerInfoId = customerInfoId;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductPack() {
+		return productPack;
+	}
+	public void setProductPack(String productPack) {
+		this.productPack = productPack;
+	}
+	public Integer getProductNumber() {
+		return productNumber;
+	}
+	public void setProductNumber(Integer productNumber) {
+		this.productNumber = productNumber;
+	}
+	public String getReceiverIdentityCard() {
+		return receiverIdentityCard;
+	}
+	public void setReceiverIdentityCard(String receiverIdentityCard) {
+		this.receiverIdentityCard = receiverIdentityCard;
 	}
 }

@@ -155,4 +155,34 @@ public class BillInfo {
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+	public Integer getCustomerInfoId() {
+		return customerInfoId;
+	}
+	public void setCustomerInfoId(Integer customerInfoId) {
+		this.customerInfoId = customerInfoId;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductPack() {
+		return productPack;
+	}
+	public void setProductPack(String productPack) {
+		this.productPack = productPack;
+	}
+	public Integer getProductNumber() {
+		return productNumber;
+	}
+	public void setProductNumber(Integer productNumber) {
+		this.productNumber = productNumber;
+	}
+	public String getReceiverIdentityCard() {
+		return receiverIdentityCard;
+	}
+	public void setReceiverIdentityCard(String receiverIdentityCard) {
+		this.receiverIdentityCard = receiverIdentityCard;
+	}
 }

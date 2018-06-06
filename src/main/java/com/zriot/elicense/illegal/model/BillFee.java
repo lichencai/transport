@@ -93,4 +93,10 @@ public class BillFee {
 	public void setRealCharge(Double realCharge) {
 		this.realCharge = realCharge;
 	}
+	public Double getOffer() {
+		return offer;
+	}
+	public void setOffer(Double offer) {
+		this.offer = offer;
+	}
 }

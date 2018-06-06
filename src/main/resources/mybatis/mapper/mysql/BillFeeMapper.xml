@@ -15,16 +15,17 @@
     other_fee as otherFee, 
     fee_pay_type as feePayType, 
     fee_receivable as feeReceivable, 
-    real_charge as realCharge
+    real_charge as realCharge, 
+    offer as offer
   </sql>
   
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillFee">
     insert into bill_fee 
     	(bill_info_id, transport_fee, deliver_fee, shipment_fee, charge_fee, warehouse_fee, collection_fee, insurance_fee, other_fee,
-    	fee_pay_type, fee_receivable, real_charge)
+    	fee_pay_type, fee_receivable, real_charge, offer)
     values
     	(#{billInfoId},#{transportFee},#{deliverFee},#{shipmentFee},#{chargeFee},#{warehouseFee},#{collectionFee},#{insuranceFee},#{otherFee},
-    	#{feePayType},#{feeReceivable},#{realCharge})
+    	#{feePayType},#{feeReceivable},#{realCharge},#{offer})
   </insert>
   
   <update id="update" parameterType="com.zriot.elicense.illegal.model.BillFee">
@@ -65,6 +66,9 @@
 	  		</if>
 	  		<if test="realCharge != null">
 	  			real_charge = #{realCharge},
+	  		</if>
+	  		<if test="offer != null">
+	  			offer = #{offer},
 	  		</if>
 	  	</set>
 	where id = #{id}

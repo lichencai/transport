@@ -23,13 +23,18 @@
     is_finsh_all as isFinshAll, 
     creator as creator, 
     update_user as updateUser, 
-    delete_flag as deleteFlag
+    delete_flag as deleteFlag, 
+    customer_info_id as customerInfoId, 
+    product_name as productName, 
+    product_pack as productPack, 
+    product_number as productNumber, 
+    receiver_identity_card as receiverIdentityCard
   </sql>
   
   <sql id="billInfoAndBillFeeColumn">
     t.id as id, 
 	t.bill_id as billId, 
-	t.customer_name as customerName, 
+	t2.customer_name as customerName, 
 	t.from_address as fromAddress, 
 	t.to_address as toAddress, 
 	t.sender as sender, 
@@ -48,6 +53,11 @@
 	t.creator as creator, 
 	t.update_user as updateUser, 
 	t.delete_flag as deleteFlag,
+	t.customer_info_id as customerInfoId,
+	t.product_name as productName,
+	t.product_pack as productPack,
+	t.product_number as productNumber,
+	t.receiver_identity_card as receiverIdentityCard,
 	t1.transport_fee as transportFee, 
 	t1.deliver_fee as deliverFee, 
 	t1.shipment_fee as shipmentFee, 
@@ -64,10 +74,12 @@
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zriot.elicense.illegal.model.BillInfo">
     insert into bill_info 
     	(bill_id, customer_name, from_address, to_address, sender, sender_mobile, sender_identity_card, receiver, receiver_mobile,
-    	car_no, receive_date, is_finsh_fee, handled_by, mark, create_date, update_date, is_finsh_all, creator, update_user, delete_flag)
+    	car_no, receive_date, is_finsh_fee, handled_by, mark, create_date, update_date, is_finsh_all, creator, update_user, delete_flag,
+    	customer_info_id, product_name, product_pack, product_number, receiver_identity_card)
     values
     	(#{billId},#{customerName},#{fromAddress},#{toAddress},#{sender},#{senderMobile},#{senderIdentityCard},#{receiver},#{receiverMobile},
-    	#{carNo},#{receiveDate},#{isFinshFee},#{handledBy},#{mark},#{createDate},#{updateDate},#{isFinshAll},#{creator},#{updateUser},#{deleteFlag})
+    	#{carNo},#{receiveDate},#{isFinshFee},#{handledBy},#{mark},#{createDate},#{updateDate},#{isFinshAll},#{creator},#{updateUser},#{deleteFlag},
+    	#{customerInfoId},#{productName},#{productPack},#{productNumber},#{receiverIdentityCard})
   </insert>
   
   
@@ -134,6 +146,21 @@
 	  		<if test="deleteFlag != null">
 	  			delete_flag = #{deleteFlag},
 	  		</if>
+	  		<if test="customerInfoId != null">
+	  			customer_info_id = #{customerInfoId},
+	  		</if>
+	  		<if test="productName != null">
+	  			product_name = #{productName},
+	  		</if>
+	  		<if test="productPack != null">
+	  			product_pack = #{productPack},
+	  		</if>
+	  		<if test="productNumber != null">
+	  			product_number = #{productNumber},
+	  		</if>
+	  		<if test="receiverIdentityCard != null">
+	  			receiver_identity_card = #{receiverIdentityCard},
+	  		</if>
   		</set>
   		where id = #{id} 
   </update>
@@ -153,10 +180,10 @@
   <select id="searchBillList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="com.zriot.elicense.illegal.vo.BillListSearchResultVo">
   	select 
     <include refid="billInfoAndBillFeeColumn" />
-    from bill_info t, bill_fee t1
+    from bill_info t LEFT JOIN customer_info t2 on t.customer_info_id = t2.id, bill_fee t1
     where t.delete_flag != 1 and t.id = t1.bill_info_id
-    <if test="customerName != null">
-		and t.customer_name like concat(concat('%', #{customerName}), '%')
+    <if test="customerName != null and '' != customerName">
+		and t2.customer_name like concat(concat('%', #{customerName}), '%')
 	</if>
 	<if test="isFinshAll != null">
 		and t.is_finsh_all = #{isFinshAll}
@@ -175,10 +202,10 @@
   
   <select id="countBillList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="java.lang.Integer">
   	select count(*)
-    from bill_info t, bill_fee t1
+    from bill_info t LEFT JOIN customer_info t2 on t.customer_info_id = t2.id, bill_fee t1
     where t.delete_flag != 1 and t.id = t1.bill_info_id
-    <if test="customerName != null">
-		and t.customer_name like concat(concat('%', #{customerName}), '%')
+    <if test="customerName != null and '' != customerName">
+		and t2.customer_name like concat(concat('%', #{customerName}), '%')
 	</if>
 	<if test="isFinshAll != null">
 		and t.is_finsh_all = #{isFinshAll}

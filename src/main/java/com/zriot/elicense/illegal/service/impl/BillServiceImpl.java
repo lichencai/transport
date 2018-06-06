@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zriot.elicense.illegal.dao.BillDetailFeeInfoMapper;
 import com.zriot.elicense.illegal.dao.BillFeeMapper;
 import com.zriot.elicense.illegal.dao.BillInfoMapper;
+import com.zriot.elicense.illegal.dao.CustomerInfoMapper;
 import com.zriot.elicense.illegal.model.BillDetailFeeInfo;
 import com.zriot.elicense.illegal.model.BillFee;
 import com.zriot.elicense.illegal.model.BillInfo;
+import com.zriot.elicense.illegal.model.CustomerInfo;
 import com.zriot.elicense.illegal.request.GetBillInfoListRequest;
 import com.zriot.elicense.illegal.request.SaveOrUpdateBillRequest;
 import com.zriot.elicense.illegal.response.BillInfoResponse;
@@ -35,6 +37,9 @@ public class BillServiceImpl implements BillService{
 	
 	@Autowired
 	private BillDetailFeeInfoMapper billDetailFeeInfoMapper;
+	
+	@Autowired
+	private CustomerInfoMapper customerInfoMapper;
 	
 	@Override
 	@Transactional
@@ -90,10 +95,12 @@ public class BillServiceImpl implements BillService{
 		
 		List<BillDetailFeeInfo> billDetailFeeInfos = billDetailFeeInfoMapper.searchByBillFeeId(billFee.getId());
 		
+		CustomerInfo customerInfo = customerInfoMapper.searchById(billInfo.getCustomerInfoId());
 		
 		billInfoResponse.setBillInfo(billInfo);
 		billInfoResponse.setBillFee(billFee);
 		billInfoResponse.setBillDetailFeeInfos(billDetailFeeInfos);
+		billInfoResponse.setCustomerInfo(customerInfo);
 		
 		return billInfoResponse;
 	}
