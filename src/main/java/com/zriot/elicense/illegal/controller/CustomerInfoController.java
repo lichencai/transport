@@ -1,5 +1,7 @@
 package com.zriot.elicense.illegal.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -67,4 +69,11 @@ public class CustomerInfoController {
 		GetCustomerInfoListResponse response = customerInfoService.getCustomerInfoListInfo(getCustomerInfoListRequest);
 		return Response.successResponse(response);
 	}
+	
+	@PostMapping("/getAllCustomerInfos")
+	public Response<List<CustomerInfo>> getAllCustomerInfos() {
+		List<CustomerInfo> response = customerInfoService.getAllCustomerInfos();
+		return Response.successResponse(response);
+	}
+	
 }

@@ -123,4 +123,10 @@
 	</if>
   </select>
   
+  <select id="getAllCustomerInfos" resultType="com.zriot.elicense.illegal.model.CustomerInfo">
+  	select 
+    <include refid="customerInfoColumn" />
+    from customer_info t
+  </select>
+  
 </mapper>

@@ -15,4 +15,5 @@ public interface CustomerInfoMapper {
 	CustomerInfo searchById(Integer id);
 	List<CustomerInfo> searchCustomerList(CustomerListSearchVo vo);
 	Integer countCustomerList(CustomerListSearchVo vo);
+	List<CustomerInfo> getAllCustomerInfos();
 }

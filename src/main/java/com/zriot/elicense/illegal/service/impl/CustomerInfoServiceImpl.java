@@ -104,5 +104,10 @@ public class CustomerInfoServiceImpl implements CustomerInfoService{
 		}
 		return c;
 	}
+
+	@Override
+	public List<CustomerInfo> getAllCustomerInfos() {
+		return customerInfoMapper.getAllCustomerInfos();
+	}
 	
 }
