@@ -15,5 +15,6 @@ public interface BillInfoMapper {
 	int delete(Integer id);
 	BillInfo searchById(Integer id);
 	List<BillListSearchResultVo> searchBillList(BillListSearchVo vo);
+	List<BillListSearchResultVo> reportList(BillListSearchVo vo);
 	Integer countBillList(BillListSearchVo vo);
 }
