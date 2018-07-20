@@ -29,6 +29,7 @@ public class BillListSearchResultVo {
 	private String productPack;
 	private Integer productNumber;
 	private String receiverIdentityCard;
+	private Integer billFeeId;
 	private Double transportFee;
 	private Double deliverFee;
 	private Double shipmentFee;
@@ -255,6 +256,12 @@ public class BillListSearchResultVo {
 	}
 	public void setProductNumber(Integer productNumber) {
 		this.productNumber = productNumber;
+	}
+	public Integer getBillFeeId() {
+		return billFeeId;
+	}
+	public void setBillFeeId(Integer billFeeId) {
+		this.billFeeId = billFeeId;
 	}
 	public String getReceiverIdentityCard() {
 		return receiverIdentityCard;

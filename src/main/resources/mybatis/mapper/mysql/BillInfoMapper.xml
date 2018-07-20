@@ -58,6 +58,7 @@
 	t.product_pack as productPack,
 	t.product_number as productNumber,
 	t.receiver_identity_card as receiverIdentityCard,
+	t1.id as billFeeId,
 	t1.transport_fee as transportFee, 
 	t1.deliver_fee as deliverFee, 
 	t1.shipment_fee as shipmentFee, 
@@ -199,6 +200,29 @@
 	</if>
 	order by t.create_date desc LIMIT #{beginNo}, #{pageSize}
   </select>
+  
+   <select id="reportList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="com.zriot.elicense.illegal.vo.BillListSearchResultVo">
+  	select 
+    <include refid="billInfoAndBillFeeColumn" />
+    from bill_info t LEFT JOIN customer_info t2 on t.customer_info_id = t2.id, bill_fee t1
+    where t.delete_flag != 1 and t.id = t1.bill_info_id
+    <if test="customerName != null and '' != customerName">
+		and t2.customer_name like concat(concat('%', #{customerName}), '%')
+	</if>
+	<if test="isFinshAll != null">
+		and t.is_finsh_all = #{isFinshAll}
+	</if>
+	<if test="isFinshFee != null">
+		and t.is_finsh_fee = #{isFinshFee}
+	</if>
+	<if test="beginDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+	</if>
+	<if test="endDate != null">
+		and DATE_FORMAT(t.create_date, '%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+	order by t.create_date desc
+  </select> 
   
   <select id="countBillList" parameterType="com.zriot.elicense.illegal.vo.BillListSearchVo"  resultType="java.lang.Integer">
   	select count(*)
