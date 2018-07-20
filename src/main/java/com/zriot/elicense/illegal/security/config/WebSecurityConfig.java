@@ -21,7 +21,9 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
     protected void configure(HttpSecurity security) throws Exception {
         security
             .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/iuser/login").permitAll()
+            .antMatchers("/iuser/login", "/transportview/**")
+//            .antMatchers(HttpMethod.POST, "/iuser/login")
+            .permitAll()
 //            .antMatchers(HttpMethod.POST, "/**").permitAll()
             .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
         super.configure(security);

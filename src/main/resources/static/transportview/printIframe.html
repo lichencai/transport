@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- <style type="text/css" media="print">
+        html{
+            height: 100%;
+            width: 100%;
+        }
+    </style> -->
+</head>
+<body style="padding: 0;margin: 0;height: 100%;width: 100%;">
+<div id="printBody" style="width: 700px;height: 100%;">
+    <span><span id="toAddress"></span></span>
+    <span style="float: right;">
+        <span id="year"></span>
+        <span id="month"></span>
+        <span id="day"></span></span>
+    <table>
+        <tr>
+            <td colspan="2"></td><td id="customerName"></td><td></td><td id="telephone"></td>
+            <td></td><td id="receiver"></td><td></td><td colspan="2" id="receiverMobile"></td>
+        </tr>
+        <tr>
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td id="productName"></td><td id="productNumber"></td><td ="kiloCount"></td><td id="productPack"></td>
+            <td id="transportFee"></td><td id="offer"></td><td id="insuranceFee"></td>
+            <td id="shipmentFee"></td><td id="deliverFee"></td><td id="totalFee" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td></td><td colspan="2" id="collectionFee"></td>
+            <td colspan="7" style="text-align: left">
+                <span id="thousand" style="width: 40px;display: inline-block;text-align: center;"></span>
+                <span id="hundred" style="width: 40px;display: inline-block;text-align: center;"></span>
+                <span id="ten" style="width: 40px;display: inline-block;text-align: center;"></span>
+                <span id="unit" style="width: 40px;display: inline-block;text-align: center;"></span></td>
+        </tr>
+        <tr>
+            <td></td><td colspan="3"></td>
+            <td></td><td id="handledBy"></td>
+            <td rowspan="2"></td>
+            <td></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td colspan="5"></td>
+            <td id="xj"></td><td id="tf"></td><td id="yj"></td>
+        </tr>
+    </table>
+</div>
+<input type="button" name="print" value="打印" onclick="clickPrint()"/>
+
+
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+
+<script type="text/javascript">
+    function getvalue(name){    
+        var str = window.location.search;   //location.search是从当前URL的?号开始的字符串     
+        if (str.indexOf(name) != -1)	//判断是否收到值
+        {                
+            var pos_start = str.indexOf(name) + name.length+1;  //解析获取值   
+            var pos_end=str.indexOf("&", pos_start);        
+            if (pos_end==-1){  
+                return str.substring(pos_start);
+            }
+            else{           
+                return null;
+            }  
+        }
+    }
+    function initBillInfo(billData){
+        if(!billData){
+            return;
+        }
+
+        console.log(billData);
+
+        var billInfo = billData.billInfo;
+        var billFee = billData.billFee;
+        var customerInfo = billData.customerInfo;
+        var billDetailFeeInfos = billData.billDetailFeeInfos;
+
+        $("#customerName").html(billInfo.sender);
+        $("#telephone").html(billInfo.senderMobile);
+
+        $("#receiver").html(billInfo.receiver);
+        $("#receiverMobile").html(billInfo.receiverMobile);
+
+        $("#productPack").html(billInfo.productPack);
+        $("#productName").html(billInfo.productName);
+        $("#productNumber").html(billInfo.productNumber);
+
+        $("#transportFee").html(billFee.transportFee);
+
+        $("#offer").html(billFee.offer);
+        $("#insuranceFee").html(billFee.insuranceFee);
+        $("#shipmentFee").html(billFee.shipmentFee);
+        $("#deliverFee").html(billFee.deliverFee);
+
+        $("#collectionFee").html(billFee.collectionFee);
+
+        $("#mark").html(billInfo.mark);
+        $("#handledBy").html(billInfo.handledBy);
+
+        if(billFee.feePayType == 1){
+            $("#yj").html('✔');
+        }else if(billFee.feePayType == 2){
+            $("#tf").html('✔');
+        }else if(billFee.feePayType == 3){
+            $("#xj").html('✔');
+        }else if(billFee.feePayType == 4){
+        }
+
+        for(var i = 0; i < billDetailFeeInfos.length; i++){
+            if(billDetailFeeInfos[i].type == 1){
+                $('#kiloCount').html(billDetailFeeInfos[i].unit);
+            }
+        }
+
+        $("#toAddress").html(billInfo.toAddress);
+        var createDate = new Date(billInfo.createDate).format("yyyy-MM-dd");
+        var days = createDate.split('-');
+        $("#year").html(days[0]);
+        $("#month").html(days[1]);
+        $("#day").html(days[2]);
+
+
+        var totalFee = billFee.transportFee + billFee.offer + billFee.insuranceFee
+            + billFee.shipmentFee + billFee.deliverFee;
+        $('#totalFee').html(totalFee);
+
+        totalFee = Math.floor(totalFee);
+        if(totalFee <= 9999){
+            var temp = totalFee % 10;
+            $("#unit").html(changeBigMonth(temp));
+            temp = Math.floor(totalFee / 10) % 10;
+            $("#ten").html(changeBigMonth(temp));
+            temp = Math.floor(totalFee / 100) % 10;
+            $("#hundred").html(changeBigMonth(temp));
+            temp = Math.floor(totalFee / 1000) % 10;
+            $("#thousand").html(changeBigMonth(temp));
+        }
+    }
+
+    function changeBigMonth(val){
+        if(val == 0){
+            return '零';
+        }else if(val == 1){
+            return '壹';
+        }else if(val == 2){
+            return '贰';
+        }else if(val == 3){
+            return '叁';
+        }else if(val == 4){
+            return '肆';
+        }else if(val == 5){
+            return '伍';
+        }else if(val == 6){
+            return '陆';
+        }else if(val == 7){
+            return '柒';
+        }else if(val == 8){
+            return '捌';
+        }else if(val == 9){
+            return '玖';
+        }
+    }
+    var id = getvalue('id');
+    if(id){
+        var billData = getBillData(id);
+	    initBillInfo(billData);
+        // var infoHtml = $("#printBody")[0].innerHTML;
+        // console.log(infoHtml);
+        // $("#printBody").html(infoHtml);
+        // window.print();
+    }
+
+    function clickPrint(){
+        var infoHtml = $("#printBody")[0].innerHTML;
+        console.log(infoHtml);
+        $("#printBody").html(infoHtml);
+        window.print();
+    }
+
+</script>
+<style>
+    table, table tr th, table tr td { border:1px solid #0094ff; }
+    table { 
+        width: 700px; 
+        min-height: 25px; 
+        line-height: 25px; 
+        text-align: center; 
+        border-collapse: 
+        collapse; padding:2px;
+    }
+    #printBody {
+        margin-left: 1cm;
+        margin-top: 2cm;
+    }
+</style>
+</body>
+</html>
